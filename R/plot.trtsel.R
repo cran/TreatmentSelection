@@ -12,7 +12,7 @@ function(x, bootstraps = 500,
             ...)
 
 {
-  
+ 
   if(!is.trtsel(x)) stop("x must be an object of class 'trtsel' created by using the function 'trtsel' see ?trtsel for more help")
  
   if(!is.element(plot.type, c("risk", "treatment effect", "cdf", "selection impact"))){ 
@@ -29,7 +29,7 @@ function(x, bootstraps = 500,
   if(bootstraps < 2) warning("Number of bootstraps must be greater than 1, bootstrap confidence intervals will not be computed") 
   if(ci == "none") bootstraps = 0; 
   # theta curves can only be plotted for cohort data and with vertical ci's
-  if(substr(plot.type, 1, 3)=="the"){
+  if(substr(plot.type, 1, 3)=="sel"){
    # if(substr(x$model.fit$study.design, 1, 3) != "ran") stop("theta curves cannot be created for subcohort designs")
     if(substr(ci, 1, 1) =="h") {
       
@@ -45,7 +45,7 @@ function(x, bootstraps = 500,
       if(substr(plot.type, 1, 3) =="ris") ci = "horizontal"
       if(substr(plot.type, 1, 3) =="tre") ci = "horizontal"
       if(substr(plot.type, 1, 3) =="cdf") ci = "vertical"
-      if(substr(plot.type, 1, 3) =="the") ci = "vertical"
+      if(substr(plot.type, 1, 3) =="sel") ci = "vertical"
     }else{
       
       if(substr(plot.type, 1, 3) =="ris") ci = "vertical"
@@ -57,19 +57,17 @@ function(x, bootstraps = 500,
   }
   #no cdf plots for binary marker
   if(!is.null(x$model.fit$disc.marker.neg)){
-  if(is.element(substr(plot.type, 1, 3), c("cdf", "selection impact"))) stop("cdf or selection impact plots cannot be created for a binary marker. Please choose plot.type to be \"risk\" or \"treatment effect\" ")
+  if(is.element(substr(plot.type, 1, 3), c("cdf", "sel"))) stop("cdf or selection impact plots cannot be created for a binary marker. Please choose plot.type to be \"risk\" or \"treatment effect\" ")
   }
   #save the current plot parameters
   #old.par <- par(no.readonly = TRUE)
  
 
 #extract the needed data from x, which is our TrtSel object
-    
-  marker <- x$derived.data$marker
+
   trt <- x$derived.data$trt
   event <- x$derived.data$event
 
-  n <- length(marker)
   rho  <- x$model.fit$cohort.attributes
   if(length(rho) == 4) rho = c(rho, -9999, -9999, -9999) #accomodate the nested case-control design
   
@@ -78,14 +76,13 @@ function(x, bootstraps = 500,
   boot.sample <- x$functions$boot.sample
   get.F <- x$functions$get.F
   delta <- x$derived.data$trt.effect  
-  
-  if(link == "risks_provided") 
-    {
-    provided_risk <- cbind(x$derived.data$fittedrisk.t0, 
-                           x$derived.data$fittedrisk.t1)
+
+  if(link == "risks_provided") {
+    marker = NULL
     show.marker.axis = FALSE
-  } else provided_risk = NULL
-  
+  }else{
+    marker <- x$derived.data$marker 
+  }
 
  if(is.null(x$model.fit$disc.marker.neg)){  #continuous marker 
     plot.functions <- list(  predcurvePLOT_gg, trteffectPLOT_gg, CDFdeltaPLOT_gg, SelectionImpactPLOT_gg)
@@ -96,7 +93,7 @@ function(x, bootstraps = 500,
 
    if(substr(ci, 1,1 )=="v"){
        
-      if(is.element(substr(plot.type, 1,3), c("tre", "ris", "the"))) fixed.values = seq(from = 1, to = 100, length.out = conf.bandsN)
+      if(is.element(substr(plot.type, 1,3), c("tre", "ris", "sel"))) fixed.values = seq(from = 1, to = 100, length.out = conf.bandsN)
       else if(substr(plot.type, 1,3)=="cdf") fixed.values = seq(from = min(delta), to = max(delta), length.out = conf.bandsN)
       
    }else{
