@@ -6,9 +6,8 @@ output:
     toc: yes
 ---
 
-*Last updated June 2014*
 
-This tutorial uses the Treatment Selection package (version 1.1.1) to analyze the example data provided in the package.
+This tutorial uses the Treatment Selection package (version 1.2.0) to analyze the example data provided in the package.
 
 First, you need to download and install the package:
 
@@ -28,6 +27,7 @@ First, load the data called `tsdata`. Four markers are included in the data exam
 
 ```{r}
 library(TreatmentSelection)
+set.seed(12321)
 
 data(tsdata)
 
@@ -130,7 +130,7 @@ plot.trtsel(trtsel.Y2_disc,
             bootstraps = 50)
 ```
 #### Selection impact plot
-**As of June 2014**, if you install the package from github using `devtools`, an option has been added to plot 'selection impact' curves. Which show the estimated event rate if different proportions of observations where treated using the marker of interest.
+With v1.1.2, an option has been added to plot 'selection impact' curves. Which show the estimated event rate if different proportions of observations where treated based off the marker of interest.
 
 ```{r}
 plot.trtsel(trtsel.Y1, 

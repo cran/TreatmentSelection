@@ -33,7 +33,8 @@ function(x, bootstraps = 1000, alpha = .05){
                                                    link = link, 
                                                    disc.marker.neg = x$model.fit$disc.marker.neg, 
                                                    provided_risk = provided_risk))
- 
+ #appease check
+  quantile <- NULL
   ## 1. Test the null hypothesis of Theta = 0   
 
 
@@ -59,7 +60,7 @@ function(x, bootstraps = 1000, alpha = .05){
   summary.measures$Marker.Thresh <- NA
   }
 
-  conf.intervals <- apply(boot.data[-c(1:4),], 1, quantile, probs = c(alpha/2, 1-alpha/2), na.rm = TRUE) ##########  I am giving off all the quantiles from 1 to 99 here for the simulations, we should take this out for the actual package release. 
+  conf.intervals <- apply(boot.data[-c(1:4),], 1, quantile, probs = c(alpha/2, 1-alpha/2), type = 1, na.rm = TRUE) 
   row.names(conf.intervals) <- c("lower", "upper")
   #data for more ints, this is to generate ci bounds for our estimates of the thresh hold value 
   # data.mi <- rbind( (-boot.data[2,]/boot.data[4,]), boot.data[15,])
