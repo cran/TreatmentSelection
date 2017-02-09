@@ -1,0 +1,28 @@
+---
+title: "Proposed Updates for new version of package TreatmentSelection"
+author: "Marshall Brown"
+date: "April 12, 2016"
+output: html_document
+---
+
+We wish to make the following changes to the R package 
+
+1.  Users need to install package 'binom' if they don't have it. Fix this. 
+
+# check all man files
+
+main file ...
+trtsel_measures ...
+trtsel ...
+plot trtsel ...
+evaluate trtsel ...
+calibrate trtsel ...
+compare trtsel ...
+
+#change 
+
+# bias correction for compare function ...
+# checks + add to cran
+
+
+

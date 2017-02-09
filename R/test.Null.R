@@ -33,12 +33,69 @@ function( trtsel, alpha){
  #   }
 
  #  }
+  #we only do this test if we have a single marker: 
 
+ if(length(trtsel$model.fit$marker.names)==1){
+  if(trtsel$model.fit$outcome != "time-to-event"){
+    if(is.null(trtsel$model.fit$coefficients)) p.val <- NA
+    else p.val <- trtsel$model.fit$coefficients[4,4]
+    reject <- p.val <= alpha
+    z.value <- trtsel$model.fit$coefficients[4,3] 
+    
+  }else{
   if(is.null(trtsel$model.fit$coefficients)) p.val <- NA
-  else p.val <- trtsel$model.fit$coefficients[4,4]
+  else p.val <- trtsel$model.fit$coefficients[3,5]
   reject <- p.val <= alpha
-  z.value <- trtsel$model.fit$coefficients[4,3] 
-
+  z.value <- trtsel$model.fit$coefficients[3,4] 
+  }
+   
+ }else{
+   p.val <- NA
+   reject <- NA
+   z.value <- NA
+ }
   list( reject = reject, p.value = p.val, z.statistic = z.value, alpha = alpha)
 
 }
+
+
+test.Null.warning <-
+  function(x, a1a3.pval){
+    
+    if(!x & is.null(a1a3.pval)){
+      cat("\n")
+      cat("  ##############################################\n")
+      cat("  ###                WARNING!                ###\n")
+      cat("  ##############################################\n\n")   
+      
+      
+      cat("  ### Not enough evidence to reject the      ###\n")
+      cat("  ### hypothesis test of:                    ###\n") 
+      cat("  ###                                        ###\n")        
+      cat("  ### H_0 : No marker-by-treatment           ###\n")
+      cat("  ###              interaction               ###\n")
+      cat("  ###                                        ###\n") 
+      cat("  ### Inference for Theta may be unreliable! ###\n\n")
+      cat("  ##############################################\n\n") 
+      
+    }else if(!x & !is.null(a1a3.pval)){
+      
+      cat("\n")
+      cat("  ##############################################\n")
+      cat("  ###                WARNING!                ###\n")
+      cat("  ##############################################\n\n")   
+      
+      
+      cat("  ### Not enough evidence to reject both     ###\n")
+      cat("  ### hypothesis tests of:                   ###\n") 
+      cat("  ### H_0 :                                  ###\n")        
+      cat("  ### 1. No marker-by-treatment interaction  ###\n")
+      cat("  ###                                        ###\n")  
+      cat("  ### 2. The marker positivity threshold     ###\n") 
+      cat("  ###    is outside marker bounds            ###\n")  
+      cat("  ###                                        ###\n")  
+      cat("  ### Inference for Theta may be unreliable! ###\n\n")
+      cat("  ##############################################\n\n") 
+    }
+  }
+

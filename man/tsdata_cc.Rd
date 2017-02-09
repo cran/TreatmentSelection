@@ -30,57 +30,9 @@ Janes, Holly; Brown, Marshall D; Pepe, Margaret; Huang, Ying; "An Approach to Ev
 }
 
 \seealso{
-\code{\link{trtsel}} for creating trtsel objects, \code{\link{plot.trtsel}} for plotting risk curves and more, \code{\link{eval.trtsel}} for evaluating marker performance,  \code{\link{calibrate.trtsel}} for assessing model calibration, and \code{\link{compare.trtsel}} to compare two trtsel object. 
+\code{\link{trtsel}} for creating trtsel objects, \code{\link{plot.trtsel}} for plotting risk curves and more, \code{\link{evaluate.trtsel}} for evaluating marker performance,  \code{\link{calibrate.trtsel}} for assessing model calibration, and \code{\link{compare.trtsel}} to compare two trtsel object. 
 }
 
 
-\examples{
-data(tsdata_cc)
-data(tsdata) #need this to provide cohort.attribute information to function trtsel 
 
-tsdata_cc[1:10, ]
-
-###########################
-## Create trtsel objects 
-###########################
-
-#create cohort.attributes using the full cohort dataset tsdata
-# c(cohort sample size, Pr(T=1) in cohort, Pr(Event==1) in cohort, fraction of cases)
-rho.cc <- c(nrow(tsdata), mean(tsdata$trt==1), mean(tsdata$event==1), 1.0 )
-
-trtsel.Y1 <- trtsel( event = "event", trt = "trt", marker ="Y1", 
-                    data = tsdata_cc,
-                    cohort.attributes = rho.cc,
-                    study.design = "nested case-control")
-
-#############################################
-## Plot fitted risks
-#############################################
-
-# Plot risk curves
-tmp <- plot.trtsel(trtsel.Y1, main = "Marker Y1", 
-                       plot.type = "risk", bootstraps = 10, # set this higher in practice
-                       trt.names=c("chemo.","no chemo."))
-
-
-
-
-##############################
-## Assess model calibration
-##############################
-
- 
-cali.Y1 <- calibrate.trtsel(trtsel.Y1)
-cali.Y1
-
-#########################################
-## Evaluate performance of each marker 
-#########################################
-
-estimates.Y1 <- eval.trtsel(trtsel.Y1, bootstraps = 10)
-estimates.Y1
-
-
-
-}
 \keyword{datasets}

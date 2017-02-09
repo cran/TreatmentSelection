@@ -5,8 +5,17 @@ function(x, ci, ci.bounds, get.F, fixed.values,conf.bands,  rho, xlab, ylab, xli
   risk.t1 <- x$derived.data$fittedrisk.t1
   trt.effect <- x$derived.data$trt.effect
 
-  event <- x$derived.data$event
-  trt <- x$derived.data$trt
+  if(x$model.fit$link == "time-to-event"){
+    event = rep(0, nrow(x$derived.data))
+    event.name = x$treatment.name 
+    #setting event.name to treatment.name: this doesn't matter since we use model 
+    #based estimates of event rates to get the marginal treatment effect for the plots. 
+  }else{
+    event <- x$derived.data[[as.character(x$formula[[2]])]]
+    event.name = as.character(x$formula[[2]])
+  }
+  
+  trt <- x$derived.data[[x$treatment.name]]
   n = length(trt)
 
   F.D <- get.F(trt.effect, event, trt, rho = rho)*100
@@ -17,7 +26,10 @@ function(x, ci, ci.bounds, get.F, fixed.values,conf.bands,  rho, xlab, ylab, xli
   mydata = mydata[with(mydata, order(F.D)),]
 
   ## need the mean risk given t=0 and t=1. We need to account for subsampling in this. 
-  allMeasures <- x$functions$get.summary.measures( x$derived.data, rho, x$model.fit$thresh)
+  allMeasures <- x$functions$get.summary.measures( x$derived.data, event.name = event.name, 
+                                                   treatment.name = x$treatment.name, 
+                                                   rho = rho,
+                                                   d = x$model.fit$thresh)
   
   
   avglines <- cbind(allMeasures$ER.trt0.mod, sort(F.D), 4)
@@ -37,8 +49,8 @@ function(x, ci, ci.bounds, get.F, fixed.values,conf.bands,  rho, xlab, ylab, xli
     ran <- ran*1.1
     mylim <- c(cen-ran/2, cen+ran/2)
     
-    if(is.null(xlab)) xlab <- "d = % population below treatment effect"
-    if(is.null(ylab)) ylab <- "Event rate given trt rule: T = 1 if F(v) > d"
+    if(is.null(xlab)) xlab <- "% population recommended treatment"
+    if(is.null(ylab)) ylab <- "Rate of outcome under treatment policy"
     if(is.null(xlim)) xlim <- c(0,100)
     if(is.null(ylim)) ylim <- mylim
     if(is.null(main)) main <- "Selection impact curve"
@@ -47,7 +59,7 @@ function(x, ci, ci.bounds, get.F, fixed.values,conf.bands,  rho, xlab, ylab, xli
     #add x/y labels and main
     p <- p + xlab(xlab) + ylab(ylab) + ylim(ylim[1], ylim[2])+ ggtitle(main) 
     
-    p <- p + theme( text = element_text(size=18)) #, 
+   # p <- p + theme( text = element_text(size=18)) #, 
     
     p <- p + scale_x_continuous(limits = xlim)
     
@@ -73,7 +85,7 @@ function(x, ci, ci.bounds, get.F, fixed.values,conf.bands,  rho, xlab, ylab, xli
   
   
   
-  p <- p+geom_step(data =  mydata[(1:(n)),], aes(x = F.D, y = theta.curve), size = 1, direction = "vh")
+  p <- p+geom_step(data =  mydata[(1:(n)),], aes(x = F.D, y = theta.curve),  direction = "vh")
   p <- p+geom_line(data =  mydata[-c(1:(n)),], aes(x = F.D, y = theta.curve, linetype = factor(lty)), size = 0.5)
   
   
