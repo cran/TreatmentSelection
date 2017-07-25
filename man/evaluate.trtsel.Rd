@@ -2,7 +2,6 @@
 % Please edit documentation in R/evaluate.trtsel.R
 \name{evaluate.trtsel}
 \alias{evaluate.trtsel}
-\alias{evaluate}
 \title{evaluate the performance of one or more biomarkers for their ability to guide patient treatment recommendations.}
 \usage{
 \method{evaluate}{trtsel}(x, ..., bias.correct = TRUE, bootstraps = 1000,
@@ -53,7 +52,7 @@ trtsel.Y1 <- trtsel(event ~ Y1*trt,
                    treatment.name = "trt", 
                    data = tsdata, 
                    study.design = "RCT",
-                   link = "logit", 
+                   family = binomial(link = "logit"), 
                    default.trt = "trt all")
 trtsel.Y1
 

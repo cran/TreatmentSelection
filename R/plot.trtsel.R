@@ -86,7 +86,6 @@
 #'                    treatment.name = "trt", 
 #'                    data = tsdata, 
 #'                    study.design = "RCT",
-#'                    link = "logit", 
 #'                    default.trt = "trt all")
 #'
 #' 
@@ -200,7 +199,7 @@ function(x, bootstraps = 500,
   if(length(rho) == 4) rho = c(rho, -9999, -9999, -9999) #accomodate the nested case-control design
   
   study.design <- x$model.fit$study.design
-  link <- x$model.fit$link
+  link <- x$model.fit$family$family
   boot.sample <- x$functions$boot.sample
   get.F <- x$functions$get.F
   delta <- x$derived.data$trt.effect  

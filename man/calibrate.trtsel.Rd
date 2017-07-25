@@ -2,13 +2,12 @@
 % Please edit documentation in R/calibrate.trtsel.R
 \name{calibrate.trtsel}
 \alias{calibrate.trtsel}
-\alias{calibrate}
 \title{assess model calibration of a trtsel object}
 \usage{
 \method{calibrate}{trtsel}(x, ..., groups = 10, plot.type = "calibration",
   trt.names = c("Treatment", "No Treatment"), line.color = "black",
-  point.color = "grey10", main = NULL, ylim = NULL, xlim = NULL,
-  ylab = NULL, xlab = NULL)
+  point.color = "grey10", ci = 0.95, main = NULL, ylim = NULL,
+  xlim = NULL, ylab = NULL, xlab = NULL)
 }
 \arguments{
 \item{x}{An object of class "trtsel", created by using the function
@@ -38,6 +37,8 @@ c("Treatment", "No Treatment").}
 \item{line.color}{color for lines in calibration plots.}
 
 \item{point.color}{color for points in calibration plots.}
+
+\item{ci}{numeric value (default 0.95) specifying the level for confidence intervals.}
 
 \item{main}{The main title for the plot.  Only applies if plot.type is
 specified.}
@@ -82,7 +83,6 @@ trtsel.Y1 <- trtsel(event ~ Y1*trt,
                    treatment.name = "trt", 
                    data = tsdata, 
                    study.design = "RCT",
-                   link = "logit", 
                    default.trt = "trt all")
 
 trtsel.Y1

@@ -1,3 +1,4 @@
+
 TreatmentSelection 1.1.3
 ========================
  * tweaked estimation of Var(Delta) for subcohort designs. 
@@ -39,4 +40,18 @@ Note: This is a large update with many changes. Although, the estimation methods
 - Input formulas into trtsel objects instead of univariate marker information. This allows for the evaluation of multivariate models. 
 - The package now allows for survival outcomes.
 - Bias-correction to adjust for over-optimism that comes from evaluating models on the same data that were used to fit model parameters. `eval.trtsel` and `compare.trtsel` now implements a bootstrap bias-correction method. 
+
+TreatmentSelection 2.0.4 
+========================
+- adjusted estimate of event rate under marker-based trt. 
+
+
+TreatmentSelection 2.1.0
+========================
+Two key additions: 
+- allow continuous and time-to-event outcomes 
+- allow a user to evaluate models with more than one marker
+
+One minor additions: 
+- updated the estimator of event rate under marker based treatment. 
 
