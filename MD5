@@ -1,6 +1,6 @@
-5ce8d878264e2205ba111d20b7f3d92e *DESCRIPTION
+39ab5e51e849dc2eb6ab5714e434121e *DESCRIPTION
 fdd5c91ec86d08aa0525450bda09b1da *NAMESPACE
-68706ced6ef804f17eff09844cd0e904 *NEWS
+d8f95de5f0ff56681682f7afebb66b81 *NEWS
 2fb9d79d230c5b33c9016a717c1437d7 *R/CDFdeltaPLOT.R
 57f1c2b768407d1167e6943dc1732485 *R/EventRateVec.R
 b185bfeec248084186cee88b420b4c64 *R/SelectionImpactPLOT_gg.R
@@ -27,7 +27,7 @@ b6e745f1e03b674b8996266b4687f998 *R/myplotcompare.trtsel.R
 9452e49e376f353305f68e21bf9a139b *R/test.Null.R
 941edacff73ad42a24c05107f9494447 *R/timetoevent_subroutines.R
 8167edc6de15e8c66ee92d2217e8eccd *R/trteffectPLOT.R
-c5029d45e1a503f441368d96c0f60ade *R/trtsel.R
+9bba1945f0293a761bc80dd605db0d7c *R/trtsel.R
 a420abceefa75b61552d83d7b16b1b7d *R/trtsel.boot.R
 c9d502c2ad426812d2203277ded95650 *README.md
 c5a9c361a9c8f3a00368efb28a432413 *data/surv_tsdata.rda
@@ -46,7 +46,8 @@ b22531b195bfde03029929eefd659f5f *inst/example/figure/unnamed-chunk-16.png
 5d93a066bb6c1360414660357cc1b984 *inst/example/figure/unnamed-chunk-6.png
 efeb6c51aefd53d9c67ea43645700448 *inst/example/figure/unnamed-chunk-7.png
 b4f2ec4f06369bc190cd6e5e96689c85 *inst/example/figure/unnamed-chunk-9.png
-383c7e0f464ccdc4799cd7806b6ddeb3 *inst/example/tutorial.Rmd
+8ee247cc5461bc918aa236d5ad78613a *inst/example/tutorial.Rmd
+8ef8cc3ff58b721d603127e19cf2291a *inst/example/tutorial.html
 7c2f06a40455c12896dd8c9909ba88c5 *inst/example/tutorial.md
 738bc8836cb8bdefb9807ebae90fb285 *inst/example/tutorial_reference.html
 3b02806b734583e73c7d4f45d036a8dd *inst/todo.Rmd
@@ -65,7 +66,7 @@ b39843319ee08302f1f1caa0aa9a9ff5 *man/print.eval.trtsel.Rd
 5f065a7360f03e624845f909dd6339fb *man/print.trtsel.Rd
 ed43280153c70c7aed6b5f64f58ffc48 *man/print.trtsel_summary_measures.Rd
 8c99e9dfee19f5733c80487a55302c91 *man/surv_tsdata.Rd
-e3e68fadd5d4ba170a130ba852b37f35 *man/trtsel.Rd
+6bcf8e0d5cda060a8fc794c45a59ec9f *man/trtsel.Rd
 1eb95b29237b82943f3a12921effe87b *man/trtsel_measures.Rd
 99eda4955486b72054d3f1e552c4b305 *man/tsdata.Rd
 57f57b5420738efb9ececf71d5ed0c9a *man/tsdata_cc.Rd
